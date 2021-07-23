@@ -55,4 +55,4 @@ class Player : private Collider {
 
 };
 
-#endif // PLAYER_H
+#endif

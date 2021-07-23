@@ -54,12 +54,12 @@ void Player::shoot(sf::Texture* fireballTexture, sf::Vector2f direction){
 }
 
 void Player::update(Player* enemy, std::vector<sf::Sprite> mountains, sf::Keyboard::Key up, sf::Keyboard::Key down, sf::Keyboard::Key left, sf::Keyboard::Key right, sf::Vector2u windowSize){
-    //Destroy any fireballs that're to be destroyed
+    //Destroy any fireballs that are set to be destroyed
     this->destroyFireballs();
 
     //Move
     int moveSpeed = 50;
-    sf::Vector2f offset = sf::Vector2f(0.0f, 0.0f); //diagonal movement is faster due to adding offsets
+    sf::Vector2f offset = sf::Vector2f(0.0f, 0.0f); //Diagonal movement is faster due to adding offsets
     if (sf::Keyboard::isKeyPressed(up)) {
         offset += sf::Vector2f(0.0f*moveSpeed, -0.1f*moveSpeed);
     }
@@ -73,7 +73,7 @@ void Player::update(Player* enemy, std::vector<sf::Sprite> mountains, sf::Keyboa
         offset += sf::Vector2f(0.0f*moveSpeed, 0.1f*moveSpeed);
     }
     sf::Vector2f destination = this->sprite.getPosition() + offset;
-    //if destination is not inside any mountain sprite, do the move, else don't
+    //If destination is not inside any mountain sprite, do the move, else don't
     bool invalidMove = false;
     for(auto m : mountains){
         invalidMove = invalidMove || isColliding(destination, m);
@@ -97,7 +97,7 @@ void Player::update(Player* enemy, std::vector<sf::Sprite> mountains, sf::Keyboa
     }
 
     for(int i = 0; i < enemy->getFireballs().size(); i++){
-        checkFireballCollision(enemy->getFireballs()[i]); //must only check collision with enemy's fireballs when they exist!
+        checkFireballCollision(enemy->getFireballs()[i]);
     }
 }
 
@@ -115,13 +115,8 @@ void Player::checkFireballCollision(Fireball* fb){
 
 void Player::takeDamage(int dmg){
     this->hp -= dmg;
-    //Tell players how much damage they took - To do: IN GAME
-    //std::cout << "Player " << this->getPlayerNumber() << " took " << dmg << " damage!" << std::endl;
-    //std::cout << "Player " << this->getPlayerNumber() << " now has " << this->hp << "HP" << std::endl;
     if (this->hp <= 0) {
         this->dead = true;
-        std::cout << "Player " << this->getPlayerNumber() << " is dead!" << std::endl;
-        //To do: remove player sprite and show win screen
     }else setHpText();
 }
 
@@ -148,13 +143,13 @@ void Player::clampPosition(sf::Vector2u windowSize){
     if (this->sprite.getPosition().x < 0) { //Gone off left
         this->sprite.setPosition(0, this->sprite.getPosition().y);
     }
-    if (this->sprite.getPosition().y < 0) { //Gone off up
+    if (this->sprite.getPosition().y < 0) { //Gone off top
         this->sprite.setPosition(this->sprite.getPosition().x, 0);
     }
     if (this->sprite.getPosition().x + std::max(this->sprite.getGlobalBounds().width, this->hpText.getGlobalBounds().width) > windowSize.x) { //Gone off right
         this->sprite.setPosition(windowSize.x - std::max(this->sprite.getGlobalBounds().width, this->hpText.getGlobalBounds().width), this->sprite.getPosition().y);
     }
-    if (this->sprite.getPosition().y + this->sprite.getGlobalBounds().height + this->hpText.getCharacterSize() > windowSize.y) { //Gone off down
+    if (this->sprite.getPosition().y + this->sprite.getGlobalBounds().height + this->hpText.getCharacterSize() > windowSize.y) { //Gone off bottom
         this->sprite.setPosition(this->sprite.getPosition().x, windowSize.y - this->sprite.getGlobalBounds().height - this->hpText.getCharacterSize());
     }
 }

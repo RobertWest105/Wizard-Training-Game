@@ -14,7 +14,7 @@ Fireball::Fireball(sf::Texture *tex, sf::IntRect texPos, int own, sf::Vector2f p
     sprite.setTextureRect(texPos);
     sprite.setScale(0.75f, 0.75f);
 
-    //Change fireball to blue if p1 fired it
+    //Change fireball to blue if p1 fired it, red by default
     if(this->ownerPlayerNum == 1) {
         this->sprite.setColor(sf::Color::Blue);
     }
@@ -30,7 +30,8 @@ void Fireball::update(std::vector<sf::Sprite> mountains, sf::Vector2u windowSize
     sf::Vector2f destination = sprite.getPosition() + direction;
     for(auto m : mountains){
         if(isColliding(destination, m)){
-            toBeDestroyed = true; //If fireball is colliding with a mountain, destroy it
+            //If fireball is colliding with a mountain, destroy it
+            toBeDestroyed = true;
             break;
         }
     }

@@ -4,10 +4,6 @@
 #include "Fireball.h"
 #include "Player.h"
 
-void game(){
-
-}
-
 int main()
 {
     const int SCREEN_WIDTH = 512;
@@ -36,11 +32,6 @@ int main()
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Mage Training Grounds", sf::Style::Close | sf::Style::Titlebar);
 	window.setFramerateLimit(60);
 
-	//RectangleShape player(Vector2f(32.0f, 32.0f));
-	//player.setFillColor(Color::Blue);
-	//player.setPosition((float)(window.getSize().x/2), (float)(window.getSize().y/2));
-	//player.setOrigin((float)(player.getSize().x/2), (float)(player.getSize().y/2));
-
     //Setup tiles
     sf::Texture mountainTexture;
     sf::Texture grassTexture;
@@ -66,10 +57,6 @@ int main()
 	//Setup fireballs
 	sf::Texture fireballsTexture;
 	fireballsTexture.loadFromFile("Images/Fireball Spritesheet.png");
-	/*Texture fireballRightTexture;
-	Texture fireballLeftTexture;*/
-	//fireballRightTexture.loadFromFile("Images/Fireball Right.blah");
-	//fireballLeftTexture.loadFromFile("Images/Fireball Left.blah");
 
 	auto getTile = [&](int x, int y){
         if(x >= 0 && x < WIDTH_TILES && y >= 0 && y < HEIGHT_TILES){
@@ -107,13 +94,6 @@ int main()
 
 		if(titleScreen){
             sf::Text titleScreenText[3];
-//            sf::Text titleText;
-//            sf::Text controlsText;
-//            sf::Text startText;
-
-//            controlsText.setFont(font);
-//            controlsText.setCharacterSize(16);
-//            controlsText.setFillColor(sf::Color::White);
 
             titleScreenText[0].setString("WIZARD TRAINING");
             titleScreenText[0].setPosition(window.getSize().x/3, window.getSize().y/5);
@@ -131,17 +111,15 @@ int main()
                 window.draw(t);
             }
 		}else{
-            //TODO: Draw Player x wins text and allow restart by pressing space
             switch(winner){
             case 1:
             case 2:
-                //sf::sleep(sf::milliseconds(1000));
+                //Display game over text with winning player number
                 gameOverText.setString("Player " + std::to_string(winner) + " wins!\nPress enter to restart or escape to close");
                 gameOverText.setPosition(window.getSize().x/10, window.getSize().y/2);
                 window.draw(gameOverText);
                 break;
-            default:
-                //Update game state
+            default: //Update game state
                 std::vector<sf::Sprite> mountainSprites;
 
                 //Draw tiles according to level
@@ -220,33 +198,7 @@ int main()
             }
 		}
 
-		//Update players and their fireballs
-
 		window.display();
-
-		//Shooting controls
-
-		//Check collisions
-
-		//Update fireballs
-		//for (int i = 0; i < player1.getFireballs().size(); i++) {
-		//	player1.getFireballs()[i].updateFireball(window.getSize());
-		//}
-		//player1.destroyFireballs();
-		//for (int i = 0; i < player2.getFireballs().size(); i++) {
-		//	player2.getFireballs()[i].updateFireball(window.getSize());
-		//}
-		//player2.destroyFireballs();
-
-		//Mouse movement
-		/*if (Mouse::isButtonPressed(Mouse::Left)) {
-			Vector2i mousePos = Mouse::getPosition(window);
-			player.setPosition((float)mousePos.x, (float)mousePos.y);
-		}*/
-
-		//Draw players
-
-		//Draw fireballs
 
 	}
     return 0;

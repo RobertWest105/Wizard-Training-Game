@@ -11,8 +11,6 @@ class Collider {
         ~Collider();
 
     protected:
-        //sf::Sprite sprite;
-
         bool isColliding(sf::Vector2f pos, sf::Sprite& sp);
 
 };

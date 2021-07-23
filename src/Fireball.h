@@ -19,8 +19,6 @@ class Fireball : private Collider {
 
 	    void update(std::vector<sf::Sprite> mountains, sf::Vector2u windowSize);
 
-	    //void checkCollision(Player *enemy);
-
 	    sf::Sprite getSprite();
 
 	    int getOwnerPlayerNum();
@@ -33,4 +31,4 @@ class Fireball : private Collider {
 
 };
 
-#endif // FIREBALL_H
+#endif
