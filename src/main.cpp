@@ -168,7 +168,6 @@ int main()
                 }else{
                     //End game because player 2 won
                     winner = 2;
-                    std::cout << "Player 2 has won!" << std::endl;
                 }
 
                 if(!player2.getDead()){
@@ -192,7 +191,6 @@ int main()
                 }else{
                     //End game because player 1 won
                     winner = 1;
-                    std::cout << "Player 1 has won!" << std::endl;
                 }
                 break;
             }
