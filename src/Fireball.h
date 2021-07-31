@@ -8,27 +8,28 @@
 class Fireball : private Collider {
     int ownerPlayerNum;
 
-	int power;
-	bool toBeDestroyed;
+    int power;
+    bool toBeDestroyed;
 
-	sf::Vector2f direction;
+    sf::Vector2f direction;
 
-	public:
-	    Fireball(sf::Texture *tex, sf::IntRect texPos, int own, sf::Vector2f pos, sf::Vector2f dir, int startPow);
-	    ~Fireball();
+    public:
+        Fireball(sf::Texture *tex, sf::IntRect texPos, int own, sf::Vector2f pos, sf::Vector2f dir, int startPow);
+        ~Fireball();
 
-	    void update(std::vector<sf::Sprite> mountains, sf::Vector2u windowSize);
+        void update(std::vector<sf::Sprite> mountains, sf::Vector2u windowSize);
 
-	    sf::Sprite getSprite();
+        sf::Sprite getSprite();
 
-	    int getOwnerPlayerNum();
+        int getOwnerPlayerNum();
 
-	    int getPower();
+        int getPower();
 
-	    bool getToBeDestroyed();
+        bool getToBeDestroyed();
 
-	    void setToBeDestroyed(bool val);
+        void setToBeDestroyed(bool val);
 
 };
 
 #endif
+

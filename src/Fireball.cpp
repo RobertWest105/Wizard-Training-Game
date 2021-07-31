@@ -67,4 +67,3 @@ bool Fireball::getToBeDestroyed(){
 void Fireball::setToBeDestroyed(bool val){
     this->toBeDestroyed = val;
 }
-

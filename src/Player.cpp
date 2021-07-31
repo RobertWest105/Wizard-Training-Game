@@ -38,19 +38,19 @@ void Player::shoot(sf::Texture* fireballTexture, sf::Vector2f direction){
             fireballSize.x /= 8;
             fireballSize.y /= 8;
             sf::IntRect chosenFireball;
-				if(direction.x > 0){
-					chosenFireball = sf::IntRect(fireballSize.x*0, fireballSize.y*4, fireballSize.x, fireballSize.y);
-				}
-				else {
-					chosenFireball = sf::IntRect(0, 0, fireballSize.x, fireballSize.y);
-				}
-				this->fireballs.push_back(new Fireball(fireballTexture, chosenFireball, this->playerNumber, this->sprite.getPosition(), direction, startPower));
+                if(direction.x > 0){
+                    chosenFireball = sf::IntRect(fireballSize.x*0, fireballSize.y*4, fireballSize.x, fireballSize.y);
+                }
+                else {
+                    chosenFireball = sf::IntRect(0, 0, fireballSize.x, fireballSize.y);
+                }
+                this->fireballs.push_back(new Fireball(fireballTexture, chosenFireball, this->playerNumber, this->sprite.getPosition(), direction, startPower));
 
-				this->ammo--;
-				this->shootTimer = 0;
-			}
-		}
-		else this->ammo = 5;
+                this->ammo--;
+                this->shootTimer = 0;
+            }
+        }
+        else this->ammo = 5;
 }
 
 void Player::update(Player* enemy, std::vector<sf::Sprite> mountains, sf::Keyboard::Key up, sf::Keyboard::Key down, sf::Keyboard::Key left, sf::Keyboard::Key right, sf::Vector2u windowSize){
@@ -103,14 +103,14 @@ void Player::update(Player* enemy, std::vector<sf::Sprite> mountains, sf::Keyboa
 
 void Player::checkFireballCollision(Fireball* fb){
     //First check that this player isn't the owner of this fireball
-	if (fb->getOwnerPlayerNum() != this->playerNumber) {
+    if (fb->getOwnerPlayerNum() != this->playerNumber) {
         sf::Sprite fireballSprite = fb->getSprite();
-		//If given fireball collides with this player, take damage equal to power
-		if (isColliding(this->sprite.getPosition(), fireballSprite)) {
-			takeDamage(fb->getPower());
-			fb->setToBeDestroyed(true);
-		}
-	}
+        //If given fireball collides with this player, take damage equal to power
+        if (isColliding(this->sprite.getPosition(), fireballSprite)) {
+            takeDamage(fb->getPower());
+            fb->setToBeDestroyed(true);
+        }
+    }
 }
 
 void Player::takeDamage(int dmg){

@@ -9,50 +9,51 @@
 
 class Player : private Collider {
 
-	int maxHP;
-	int hp;
-	bool dead;
+    int maxHP;
+    int hp;
+    bool dead;
 
-	int playerNumber;
+    int playerNumber;
 
-	sf::Text hpText;
+    sf::Text hpText;
 
-	std::vector<Fireball*> fireballs;
-	int shootTimer;
-	int ammo;
+    std::vector<Fireball*> fireballs;
+    int shootTimer;
+    int ammo;
 
-	public:
-	    Player(sf::Texture* texture, sf::Font* textFont, sf::Vector2f pos, int playerNumber);
-	    ~Player();
+    public:
+        Player(sf::Texture* texture, sf::Font* textFont, sf::Vector2f pos, int playerNumber);
+        ~Player();
 
-	    void shoot(sf::Texture* fireballTexture, sf::Vector2f direction);
+        void shoot(sf::Texture* fireballTexture, sf::Vector2f direction);
 
-	    void update(Player* enemy, std::vector<sf::Sprite> mountains, sf::Keyboard::Key up, sf::Keyboard::Key down, sf::Keyboard::Key left, sf::Keyboard::Key right, sf::Vector2u windowSize);
+        void update(Player* enemy, std::vector<sf::Sprite> mountains, sf::Keyboard::Key up, sf::Keyboard::Key down, sf::Keyboard::Key left, sf::Keyboard::Key right, sf::Vector2u windowSize);
 
-	    void checkFireballCollision(Fireball* fb);
+        void checkFireballCollision(Fireball* fb);
 
-	    bool checkMountainCollision();
+        bool checkMountainCollision();
 
-	    void takeDamage(int dmg);
+        void takeDamage(int dmg);
 
-	    void destroyFireballs();
+        void destroyFireballs();
 
-	    void reset(sf::Vector2f startPos);
+        void reset(sf::Vector2f startPos);
 
-	    void clampPosition(sf::Vector2u windowSize);
+        void clampPosition(sf::Vector2u windowSize);
 
-	    sf::Sprite getSprite();
+        sf::Sprite getSprite();
 
-	    std::vector<Fireball*> getFireballs();
+        std::vector<Fireball*> getFireballs();
 
-	    int getPlayerNumber();
+        int getPlayerNumber();
 
-	    bool getDead();
+        bool getDead();
 
-	    sf::Text getHpText();
+        sf::Text getHpText();
 
-	    void setHpText();
+        void setHpText();
 
 };
 
 #endif
+
