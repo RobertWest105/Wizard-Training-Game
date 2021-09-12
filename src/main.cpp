@@ -4,6 +4,10 @@
 #include "Fireball.h"
 #include "Player.h"
 
+void game(){
+
+}
+
 int main()
 {
     const int SCREEN_WIDTH = 512;
@@ -30,7 +34,7 @@ int main()
     "^^^^^^^^^^^^^^^^";
 
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Mage Training Grounds", sf::Style::Close | sf::Style::Titlebar);
-    window.setFramerateLimit(60);
+	window.setFramerateLimit(60);
 
     //Setup tiles
     sf::Texture mountainTexture;
@@ -39,60 +43,60 @@ int main()
     grassTexture.loadFromFile("Images/Grass.png");
 
     //Setup text font
-    sf::Font font;
-    font.loadFromFile("Images/Retro Gaming.ttf");
-    sf::Text gameOverText;
-    gameOverText.setFont(font);
-    gameOverText.setCharacterSize(16);
+	sf::Font font;
+	font.loadFromFile("Images/Retro Gaming.ttf");
+	sf::Text gameOverText;
+	gameOverText.setFont(font);
+	gameOverText.setCharacterSize(16);
     gameOverText.setFillColor(sf::Color::White);
 
-    //Setup players
-    sf::Texture playerTexture;
-    playerTexture.loadFromFile("Images/Mage.png");
-    sf::Vector2f p1StartPos = sf::Vector2f(50, (float)(window.getSize().y/2));
-    sf::Vector2f p2StartPos = sf::Vector2f((float)(window.getSize().x - 3*playerTexture.getSize().x - 50), (float)(window.getSize().y/2));
-    Player player1(&playerTexture, &font, p1StartPos, 1);
-    Player player2(&playerTexture, &font, p2StartPos, 2);
+	//Setup players
+	sf::Texture playerTexture;
+	playerTexture.loadFromFile("Images/Mage.png");
+	sf::Vector2f p1StartPos = sf::Vector2f(50, (float)(window.getSize().y/2));
+	sf::Vector2f p2StartPos = sf::Vector2f((float)(window.getSize().x - 3*playerTexture.getSize().x - 50), (float)(window.getSize().y/2));
+	Player player1(&playerTexture, &font, p1StartPos, 1);
+	Player player2(&playerTexture, &font, p2StartPos, 2);
 
-    //Setup fireballs
-    sf::Texture fireballsTexture;
-    fireballsTexture.loadFromFile("Images/Fireball Spritesheet.png");
+	//Setup fireballs
+	sf::Texture fireballsTexture;
+	fireballsTexture.loadFromFile("Images/Fireball Spritesheet.png");
 
-    auto getTile = [&](int x, int y){
+	auto getTile = [&](int x, int y){
         if(x >= 0 && x < WIDTH_TILES && y >= 0 && y < HEIGHT_TILES){
             return level[y*WIDTH_TILES + x];
         }else return ' ';
-    };
+	};
 
-    //Update window
-    bool titleScreen = true;
-    int winner = 0;
-    while(window.isOpen()){
-        sf::Event evnt;
-        while(window.pollEvent(evnt)){
-            switch(evnt.type){
-            case sf::Event::Closed:
-                window.close();
-                break;
-            default:
-                break;
-            }
+	//Update window
+	bool titleScreen = true;
+	int winner = 0;
+	while(window.isOpen()){
+		sf::Event evnt;
+		while(window.pollEvent(evnt)){
+			switch(evnt.type){
+			case sf::Event::Closed:
+				window.close();
+				break;
+			default:
+				break;
+			}
 
-            if(titleScreen && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)){
+			if(titleScreen && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)){
                 titleScreen = false;
-            }else if(winner != 0 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)){
+			}else if(winner != 0 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)){
                 //Restart game
                 player1.reset(p1StartPos);
                 player2.reset(p2StartPos);
                 winner = 0;
-            }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
+			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
                 window.close();
-            }
-        }
+			}
+		}
 
-        window.clear();
+		window.clear();
 
-        if(titleScreen){
+		if(titleScreen){
             sf::Text titleScreenText[3];
 
             titleScreenText[0].setString("WIZARD TRAINING");
@@ -110,16 +114,16 @@ int main()
                 t.setFillColor(sf::Color::White);
                 window.draw(t);
             }
-        }else{
+		}else{
             switch(winner){
             case 1:
             case 2:
-                //Display game over text with winning player number
                 gameOverText.setString("Player " + std::to_string(winner) + " wins!\nPress enter to restart or escape to close");
                 gameOverText.setPosition(window.getSize().x/10, window.getSize().y/2);
                 window.draw(gameOverText);
                 break;
-            default: //Update game state
+            default:
+                //Update game state
                 std::vector<sf::Sprite> mountainSprites;
 
                 //Draw tiles according to level
@@ -163,7 +167,7 @@ int main()
                     window.draw(player1.getHpText());
 
                     for(int i = 0; i < player1.getFireballs().size(); i++){
-                        window.draw(player1.getFireballs()[i]->getSprite());
+                        window.draw(player1.getFireballs()[i].getSprite());
                     }
                 }else{
                     //End game because player 2 won
@@ -186,7 +190,7 @@ int main()
                     window.draw(player2.getHpText());
 
                     for(int i = 0; i < player2.getFireballs().size(); i++){
-                        window.draw(player2.getFireballs()[i]->getSprite());
+                        window.draw(player2.getFireballs()[i].getSprite());
                     }
                 }else{
                     //End game because player 1 won
@@ -194,10 +198,10 @@ int main()
                 }
                 break;
             }
-        }
+		}
 
-        window.display();
+		window.display();
 
-    }
+	}
     return 0;
 }
